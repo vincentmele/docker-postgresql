@@ -60,13 +60,13 @@ Automated builds of the image are available on [Dockerhub](https://hub.docker.co
 > **Note**: Builds are also available on [Quay.io](https://quay.io/repository/sameersbn/postgresql)
 
 ```bash
-docker pull sameersbn/postgresql:9.5-3
+docker pull babim/postgresql
 ```
 
 Alternatively you can build the image yourself.
 
 ```bash
-docker build -t sameersbn/postgresql github.com/sameersbn/docker-postgresql
+docker build -t babim/postgresql github.com/babim/docker-postgresql
 ```
 
 ## Quickstart

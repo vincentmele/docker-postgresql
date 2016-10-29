@@ -1,4 +1,5 @@
 #!/bin/bash
+service ssh restart
 set -e
 source ${PG_APP_HOME}/functions
 

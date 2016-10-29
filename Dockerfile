@@ -14,7 +14,7 @@ ENV PG_BINDIR=/usr/lib/postgresql/${PG_VERSION}/bin \
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
  && apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y acl \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y acl sudo \
       postgresql-${PG_VERSION} postgresql-client-${PG_VERSION} postgresql-contrib-${PG_VERSION} \
  && ln -sf ${PG_DATADIR}/postgresql.conf /etc/postgresql/${PG_VERSION}/main/postgresql.conf \
  && ln -sf ${PG_DATADIR}/pg_hba.conf /etc/postgresql/${PG_VERSION}/main/pg_hba.conf \

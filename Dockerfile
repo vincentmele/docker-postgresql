@@ -1,4 +1,4 @@
-FROM babim/debianbase
+FROM babim/debianbase:ssh
 
 ENV PG_APP_HOME="/etc/docker-postgresql"\
     PG_VERSION=9.5 \

@@ -1,6 +1,11 @@
 #!/bin/bash
-service ssh restart
 set -e
+
+# set password root is root
+SSHPASS1=${SSHPASS:-root}
+echo "root:$SSHPASS1" | chpasswd
+service ssh restart
+
 source ${PG_APP_HOME}/functions
 
 [[ ${DEBUG} == true ]] && set -x

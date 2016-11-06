@@ -11,7 +11,7 @@ ENV PG_APP_HOME="/etc/docker-postgresql"\
 ENV PG_BINDIR=/usr/lib/postgresql/${PG_VERSION}/bin \
     PG_DATADIR=${PG_HOME}/${PG_VERSION}/main
 
-RUN apk add --no-cache postgresql postgresql-client postgresql-contrib \
+RUN apk add --no-cache postgresql postgresql-client postgresql-contrib bash \
  && ln -sf ${PG_DATADIR}/postgresql.conf /etc/postgresql/${PG_VERSION}/main/postgresql.conf \
  && ln -sf ${PG_DATADIR}/pg_hba.conf /etc/postgresql/${PG_VERSION}/main/pg_hba.conf \
  && ln -sf ${PG_DATADIR}/pg_ident.conf /etc/postgresql/${PG_VERSION}/main/pg_ident.conf \

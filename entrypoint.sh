@@ -20,8 +20,8 @@ if [ "$1" = 'postgres' ]; then
     if [ -z "$(ls -A "$PGDATA")" ]; then
         gosu postgres initdb
 
-        if [ "$POSTGRES_PASSWORD" ]; then
-            pass="PASSWORD '$POSTGRES_PASSWORD'"
+        if [ "$PG_PASSWORD" ]; then
+            pass="PASSWORD '$PG_PASSWORD'"
             authMethod=md5
         else
             cat >&2 <<-EOWARN
@@ -32,7 +32,7 @@ if [ "$1" = 'postgres' ]; then
                          Docker's default configuration, this is
                          effectively any other container on the same
                          system.
-                         Use "-e POSTGRES_PASSWORD=password" to set
+                         Use "-e PG_PASSWORD=password" to set
                          it in "docker run".
                 ****************************************************
 EOWARN
@@ -45,25 +45,25 @@ EOWARN
         gosu postgres pg_ctl -D "$PGDATA" \
             -o "-c listen_addresses=''" \
             -w start
-        : ${POSTGRES_USER:=postgres}
-        : ${POSTGRES_DB:=$POSTGRES_USER}
-        export POSTGRES_USER POSTGRES_DB
+        : ${DB_USER:=postgres}
+        : ${DB_NAME:=$DB_USER}
+        export DB_USER DB_NAME
 
-        if [ "$POSTGRES_DB" != 'postgres' ]; then
+        if [ "$DB_NAME" != 'postgres' ]; then
             psql --username postgres <<-EOSQL
-                CREATE DATABASE "$POSTGRES_DB" ;
+                CREATE DATABASE "$DB_NAME" ;
 EOSQL
             echo
         fi
 
-        if [ "$POSTGRES_USER" == 'postgres' ]; then
+        if [ "$DB_USER" == 'postgres' ]; then
             op='ALTER'
         else
             op='CREATE'
         fi
 
         psql --username postgres <<-EOSQL
-            $op USER "$POSTGRES_USER" WITH SUPERUSER $pass ;
+            $op USER "$DB_USER" WITH SUPERUSER $pass ;
 EOSQL
         echo
 
@@ -71,7 +71,7 @@ EOSQL
         for f in /docker-entrypoint-initdb.d/*; do
             case "$f" in
                 *.sh)  echo "$0: running $f"; . "$f" ;;
-                *.sql) echo "$0: running $f"; psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" < "$f" && echo ;;
+                *.sql) echo "$0: running $f"; psql --username "$POSTGRES_USER" --dbname "$DB_NAME" < "$f" && echo ;;
                 *)     echo "$0: ignoring $f" ;;
             esac
         done

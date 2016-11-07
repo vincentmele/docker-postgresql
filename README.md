@@ -34,19 +34,19 @@ The PostgreSQL image uses several environment variables which are easy to miss. 
 
 ### `DB_PASS`
 
-This environment variable is recommended for you to use the PostgreSQL image. This environment variable sets the superuser password for PostgreSQL. The default superuser is defined by the `POSTGRES_USER` environment variable. In the above example, it is being set to "mysecretpassword".
+This environment variable is recommended for you to use the PostgreSQL image. This environment variable sets the superuser password for PostgreSQL. The default superuser is defined by the `DB_USER` environment variable. In the above example, it is being set to "mysecretpassword".
 
 ### `DB_USER`
 
-This optional environment variable is used in conjunction with `POSTGRES_PASSWORD` to set a user and its password. This variable will create the specified user with superuser power and a database with the same name. If it is not specified, then the default user of `postgres` will be used.
+This optional environment variable is used in conjunction with `DB_PASS` to set a user and its password. This variable will create the specified user with superuser power and a database with the same name. If it is not specified, then the default user of `postgres` will be used.
 
 ### `PGDATA`
 
-This optional environment variable can be used to define another location - like a subdirectory - for the database files. The default is `/var/lib/postgresql/data`, but if the data volume you're using is a fs mountpoint (like with GCE persistent disks), Postgres `initdb` recommends a subdirectory (for example `/var/lib/postgresql/data/pgdata` ) be created to contain the data.
+This optional environment variable can be used to define another location - like a subdirectory - for the database files. The default is `/var/lib/postgresql`, but if the data volume you're using is a fs mountpoint (like with GCE persistent disks), Postgres `initdb` recommends a subdirectory (for example `/var/lib/postgresql/pgdata` ) be created to contain the data.
 
 ### `DB_NAME`
 
-This optional environment variable can be used to define a different name for the default database that is created when the image is first started. If it is not specified, then the value of `POSTGRES_USER` will be used.
+This optional environment variable can be used to define a different name for the default database that is created when the image is first started. If it is not specified, then the value of `DB_USER` will be used.
 
 ### `LANG`
 

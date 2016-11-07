@@ -1,4 +1,7 @@
 #!/bin/sh
+# SSH
+/runssh.sh
+/usr/sbin/sshd
 
 set_listen_addresses() {
 	sedEscapedValue="$(echo "$1" | sed 's/[\/&]/\\&/g')"

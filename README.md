@@ -1,6 +1,8 @@
 
 # babim/postgresql:alpine
 
+(thanks: onjin)
+
 # How to use this image
 
 ## start a postgres instance

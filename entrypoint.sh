@@ -20,8 +20,8 @@ if [ "$1" = 'postgres' ]; then
     if [ -z "$(ls -A "$PGDATA")" ]; then
         gosu postgres initdb
 
-        if [ "$PG_PASSWORD" ]; then
-            pass="PASSWORD '$PG_PASSWORD'"
+        if [ "$DB_PASS" ]; then
+            pass="PASSWORD '$DB_PASS'"
             authMethod=md5
         else
             cat >&2 <<-EOWARN
@@ -32,7 +32,7 @@ if [ "$1" = 'postgres' ]; then
                          Docker's default configuration, this is
                          effectively any other container on the same
                          system.
-                         Use "-e PG_PASSWORD=password" to set
+                         Use "-e DB_PASS=password" to set
                          it in "docker run".
                 ****************************************************
 EOWARN
@@ -71,7 +71,7 @@ EOSQL
         for f in /docker-entrypoint-initdb.d/*; do
             case "$f" in
                 *.sh)  echo "$0: running $f"; . "$f" ;;
-                *.sql) echo "$0: running $f"; psql --username "$POSTGRES_USER" --dbname "$DB_NAME" < "$f" && echo ;;
+                *.sql) echo "$0: running $f"; psql --username "$DB_USER" --dbname "$DB_NAME" < "$f" && echo ;;
                 *)     echo "$0: ignoring $f" ;;
             esac
         done

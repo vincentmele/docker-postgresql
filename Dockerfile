@@ -1,5 +1,6 @@
 FROM babim/alpinebase:ssh
 
+ENV PGDATA /var/lib/postgresql/data
 ENV LANG en_US.utf8
 
 RUN apk add --no-cache postgresql postgresql-client postgresql-contrib wget && \

@@ -1,6 +1,6 @@
 FROM babim/alpinebase:ssh
 
-ENV PGDATA /var/lib/postgresql/data
+ENV PGDATA /var/lib/postgresql
 ENV LANG en_US.utf8
 
 RUN apk add --no-cache postgresql postgresql-client postgresql-contrib wget && \
@@ -8,7 +8,7 @@ RUN apk add --no-cache postgresql postgresql-client postgresql-contrib wget && \
     chmod +x /usr/local/bin/gosu && \
     mkdir -p /docker-entrypoint-initdb.d && apk del wget
 
-VOLUME /var/lib/postgresql/data
+VOLUME /var/lib/postgresql
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh

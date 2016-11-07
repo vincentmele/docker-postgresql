@@ -1,27 +1,20 @@
 FROM babim/alpinebase
 
-ENV PG_APP_HOME="/etc/docker-postgresql"\
-    PG_VERSION=9.5 \
-    PG_USER=postgres \
-    PG_HOME=/var/lib/postgresql \
-    PG_RUNDIR=/run/postgresql \
-    PG_LOGDIR=/var/log/postgresql \
-    PG_CERTDIR=/etc/postgresql/certs
+ENV LANG en_US.utf8
 
-ENV PG_BINDIR=/usr/lib/postgresql/${PG_VERSION}/bin \
-    PG_DATADIR=${PG_HOME}/${PG_VERSION}/main
+RUN apk add --no-cache postgresql postgresql-client postgresql-contrib \
+    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.9/gosu-amd64" && \
+    wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/1.9/gosu-amd64.asc" && \
+    gpg --verify /usr/local/bin/gosu.asc && \
+    rm /usr/local/bin/gosu.asc && \
+    chmod +x /usr/local/bin/gosu && \
+    mkdir -p /docker-entrypoint-initdb.d
 
-RUN apk add --no-cache postgresql postgresql-client postgresql-contrib bash \
- && ln -sf ${PG_DATADIR}/postgresql.conf /etc/postgresql/${PG_VERSION}/main/postgresql.conf \
- && ln -sf ${PG_DATADIR}/pg_hba.conf /etc/postgresql/${PG_VERSION}/main/pg_hba.conf \
- && ln -sf ${PG_DATADIR}/pg_ident.conf /etc/postgresql/${PG_VERSION}/main/pg_ident.conf \
- && rm -rf ${PG_HOME}
+VOLUME /var/lib/postgresql/data
 
-COPY runtime/ ${PG_APP_HOME}/
-COPY entrypoint.sh /sbin/entrypoint.sh
-RUN chmod 755 /sbin/entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
-EXPOSE 5432/tcp
-VOLUME ["${PG_HOME}", "${PG_RUNDIR}"]
-WORKDIR ${PG_HOME}
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+EXPOSE 5432
+CMD ["postgres"]

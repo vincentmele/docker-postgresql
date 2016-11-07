@@ -1,4 +1,4 @@
-FROM babim/alpinebase
+FROM babim/alpinebase:ssh
 
 ENV LANG en_US.utf8
 
@@ -16,5 +16,5 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-EXPOSE 5432
+EXPOSE 5432 22
 CMD ["postgres"]

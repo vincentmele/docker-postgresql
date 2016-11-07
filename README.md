@@ -6,7 +6,7 @@
 ## start a postgres instance
 
 ```console
-$ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d onjin/alpine-postgres
+$ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d babim/postgresql:alpine
 ```
 
 This image includes `EXPOSE 5432` (the postgres port), so standard container linking will make it automatically available to the linked containers. The default `postgres` user and database are created in the entrypoint with `initdb`.

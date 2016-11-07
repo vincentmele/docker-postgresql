@@ -42,11 +42,11 @@ This optional environment variable is used in conjunction with `POSTGRES_PASSWOR
 
 ### `PGDATA`
 
-This optional environment variable can be used to define another location - like a subdirectory - for the database files. The default is `/var/lib/postgresql/data`, but if the data volume you're using is a fs mountpoint (like with GCE persistent disks), Postgres `initdb` recommends a subdirectory (for example `/var/lib/postgresql/data/pgdata` ) be created to contain the data.
+This optional environment variable can be used to define another location - like a subdirectory - for the database files. The default is `/var/lib/postgresql`, but if the data volume you're using is a fs mountpoint (like with GCE persistent disks), Postgres `initdb` recommends a subdirectory (for example `/var/lib/postgresql/pgdata` ) be created to contain the data.
 
 ### `DB_NAME`
 
-This optional environment variable can be used to define a different name for the default database that is created when the image is first started. If it is not specified, then the value of `POSTGRES_USER` will be used.
+This optional environment variable can be used to define a different name for the default database that is created when the image is first started. If it is not specified, then the value of `DB_USER` will be used.
 
 ### `LANG`
 

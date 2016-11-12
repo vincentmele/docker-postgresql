@@ -1,4 +1,6 @@
 #!/bin/sh
+#cron
+/runcron.sh
 
 set_listen_addresses() {
 	sedEscapedValue="$(echo "$1" | sed 's/[\/&]/\\&/g')"

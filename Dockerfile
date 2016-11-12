@@ -2,7 +2,7 @@ FROM babim/alpinebase:cron.ssh
 
 ENV PGDATA /var/lib/postgresql \
     LANG en_US.utf8 \
-    BACKUP_PATH=/backup
+    BACKUP_PATH /backup
 
 ENV GOSU_VERSION 1.9
 RUN set -x && \

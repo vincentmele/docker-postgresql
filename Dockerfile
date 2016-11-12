@@ -7,7 +7,7 @@ ENV PGDATA /var/lib/postgresql \
 ENV GOSU_VERSION 1.9
 RUN set -x && \
     apk add --no-cache postgresql postgresql-client postgresql-contrib wget && \
-    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" --no-check-certificate && \
+    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64" --no-check-certificate && \
     chmod +x /usr/local/bin/gosu && \
     mkdir -p /docker-entrypoint-initdb.d && apk del wget
 

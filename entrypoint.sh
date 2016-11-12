@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+#cron
+sevice cron start
+
 # set password root is root
 SSHPASS1=${SSHPASS:-root}
 echo "root:$SSHPASS1" | chpasswd

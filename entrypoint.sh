@@ -1,5 +1,8 @@
 #!/bin/bash
 set -e
+#cron
+sevice cron start
+
 source ${PG_APP_HOME}/functions
 
 [[ ${DEBUG} == true ]] && set -x

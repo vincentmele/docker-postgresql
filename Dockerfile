@@ -1,7 +1,8 @@
-FROM babim/alpinebase:ssh
+FROM babim/alpinebase:cron.ssh
 
-ENV PGDATA /var/lib/postgresql
-ENV LANG en_US.utf8
+ENV PGDATA /var/lib/postgresql \
+    LANG en_US.utf8 \
+    BACKUP_PATH=/backup
 
 ENV GOSU_VERSION 1.9
 RUN set -x && \
@@ -10,10 +11,11 @@ RUN set -x && \
     chmod +x /usr/local/bin/gosu && \
     mkdir -p /docker-entrypoint-initdb.d && apk del wget
 
-VOLUME /var/lib/postgresql
+VOLUME ["${PGDATA}", "${BACKUP_PATH}"]
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
+COPY backup.sh /backup.sh
+RUN chmod 755 /*.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 5432 22

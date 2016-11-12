@@ -11,7 +11,7 @@ RUN set -x && \
     chmod +x /usr/local/bin/gosu && \
     mkdir -p /docker-entrypoint-initdb.d && apk del wget
 
-VOLUME ["${PGDATA}", "${BACKUP_PATH}"]
+VOLUME ["/var/lib/postgresql", "/backup"]
 
 COPY entrypoint.sh /entrypoint.sh
 COPY backup.sh /backup.sh

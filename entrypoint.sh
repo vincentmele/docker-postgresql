@@ -3,6 +3,9 @@
 /runssh.sh
 /usr/sbin/sshd
 
+#cron
+/runcron.sh
+
 set_listen_addresses() {
 	sedEscapedValue="$(echo "$1" | sed 's/[\/&]/\\&/g')"
 	sed -ri "s/^#?(listen_addresses\s*=\s*)\S+/\1'$sedEscapedValue'/" "$PGDATA/postgresql.conf"

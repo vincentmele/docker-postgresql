@@ -1,4 +1,4 @@
-FROM babim/debianbase:ssh
+FROM babim/debianbase:cron.ssh
 
 ENV PG_APP_HOME="/etc/docker-postgresql"\
     PG_VERSION=9.5 \
@@ -6,7 +6,8 @@ ENV PG_APP_HOME="/etc/docker-postgresql"\
     PG_HOME=/var/lib/postgresql \
     PG_RUNDIR=/run/postgresql \
     PG_LOGDIR=/var/log/postgresql \
-    PG_CERTDIR=/etc/postgresql/certs
+    PG_CERTDIR=/etc/postgresql/certs \
+    BACKUP_PATH=/backup
 
 ENV PG_BINDIR=/usr/lib/postgresql/${PG_VERSION}/bin \
     PG_DATADIR=${PG_HOME}/${PG_VERSION}/main
@@ -24,9 +25,10 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
 
 COPY runtime/ ${PG_APP_HOME}/
 COPY entrypoint.sh /entrypoint.sh
+COPY backup.sh /backup.sh
 RUN chmod 755 /*.sh
 
 EXPOSE 5432/tcp
-VOLUME ["${PG_HOME}", "${PG_RUNDIR}"]
+VOLUME ["${PG_HOME}", "${PG_RUNDIR}", "${BACKUP_PATH}"]
 WORKDIR ${PG_HOME}
 ENTRYPOINT ["/entrypoint.sh"]

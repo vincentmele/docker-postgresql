@@ -4,7 +4,7 @@ ENV PGDATA /var/lib/postgresql \
     LANG en_US.utf8 \
     BACKUP_PATH /backup
 
-ENV GOSU_VERSION 1.9
+ENV GOSU_VERSION 1.10
 RUN set -x && \
     apk add --no-cache postgresql postgresql-client postgresql-contrib wget && \
     wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64" --no-check-certificate && \

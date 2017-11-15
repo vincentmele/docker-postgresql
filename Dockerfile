@@ -1,7 +1,7 @@
 FROM babim/debianbase:cron.ssh
 
 ENV PG_APP_HOME="/etc/docker-postgresql"\
-    PG_VERSION=9.5 \
+    PG_VERSION=9.6 \
     PG_USER=postgres \
     PG_HOME=/var/lib/postgresql \
     PG_RUNDIR=/run/postgresql \
